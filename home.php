@@ -7,12 +7,10 @@ require_once "app/helpers/conversations.php";
 
 # Getting User data
 $user = getUser($_SESSION['username'], $conn);
-var_dump($user['user_id']);
+
 # Getting User Conversations
 $user_id = is_int($user['user_id']);
 $conversation = getUser($user_id, $conn);
- var_dump($conversation);
- die();
 ?>
 
 <!DOCTYPE html>
