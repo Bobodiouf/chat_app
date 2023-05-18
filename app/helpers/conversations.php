@@ -1,6 +1,6 @@
 <?php
 
-function getConversations($user_id, $conn): array {
+function getConversations($user_id, $conn) {
 
     # Getting all the conversations for current (logged in) user
     $sql = "SELECT * FROM conversations
@@ -9,9 +9,7 @@ function getConversations($user_id, $conn): array {
 
     $stmt = $conn->prepare($sql);
     $stmt->execute([$user_id, $user_id]);
-    var_dump($stmt);
-
-    if($stmt->rowCount > 0){
+    if($stmt->rowCount() > 0){
         $conversations = $stmt->fetchAll();
         # Create empty array to store the user conversation
         $user_data = [];
@@ -34,7 +32,7 @@ function getConversations($user_id, $conn): array {
             $allConversationns = $stmt2->fetchAll();
 
             # Pushing the data into the array
-            array_push($user_data, $allConversationns);
+            array_push($user_data, $allConversationns[0]);
 
             return $user_data;
         }

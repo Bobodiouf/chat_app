@@ -54,7 +54,7 @@ if(isset($_POST['username']) &&
 
                     # redirect to "home.php"
                     header("location: ../../home.php");
-
+                    exit;
                     
                 }else{
                     # error message

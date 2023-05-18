@@ -10,3 +10,12 @@
 a{
     text-decoration: none;
 }
+.fs-big{
+    font-size: 6rem;
+}
+.online{
+    width: 10px;
+    height: 10px;
+    background-color: green;
+    border-radius: 50%;
+}
