@@ -25,7 +25,8 @@ $conversations = getConversations($user['user_id'], $conn);
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
     <title>Chat App - Home</title>
-</head><body class="d-flex
+</head>
+<body class="d-flex
              justify-content-center
              align-items-center
              vh-100">

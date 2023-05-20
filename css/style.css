@@ -1,3 +1,7 @@
+small{
+    color: #bbb;
+    font-size: 0.7rem;
+}
 .w-400 {
     width: 400px;
 }
@@ -13,9 +17,20 @@ a{
 .fs-big{
     font-size: 6rem;
 }
+.fs-sm{
+    font-size: 1.4rem;
+}
 .online{
     width: 10px;
     height: 10px;
     background-color: green;
     border-radius: 50%;
+}
+.w-15{
+    width: 15%;
+}
+.rtext{
+    width: 65%;
+    background: #f8f9fa;
+    color: #444;
 }
