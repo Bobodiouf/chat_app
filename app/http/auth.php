@@ -18,14 +18,14 @@ if(isset($_POST['username']) &&
         # error message
         $em = "Username is required";
 
-        # redirect to 'index.php and passing erroer message
+        # redirect to 'index.php and passing error message
         header("location: ../../index.php?error=$em");
         exit;
     }elseif (empty($password)) {
         # error message
         $em = "password is required";
 
-        # redirect to 'index.php and passing erroer message
+        # redirect to 'index.php and passing error message
         header("location: ../../index.php?error=$em");
         exit; 
     } else{
@@ -60,7 +60,7 @@ if(isset($_POST['username']) &&
                     # error message
                     $em = "Incorrect Username or password";
 
-                    # redirect to 'index.php and passing erroer message
+                    # redirect to 'index.php and passing error message
                     header("location: ../../index.php?error=$em");
                     exit;
                 }
@@ -69,7 +69,7 @@ if(isset($_POST['username']) &&
                 # error message
                 $em = "Incorrect Username or password";
 
-                # redirect to 'index.php and passing erroer message
+                # redirect to 'index.php and passing error message
                 header("location: ../../index.php?error=$em");
                 exit; 
             }
