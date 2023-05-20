@@ -4,6 +4,7 @@ if (isset($_SESSION['username'])) :
     require_once "app/db.conn.php";
 
     require_once "app/helpers/user.php";
+    require_once "app/helpers/chat.php";
 
     require_once "app/helpers/timeAgo.php";
     
@@ -18,6 +19,8 @@ if (isset($_SESSION['username'])) :
         header("Location: home.php");
         exit;
     }
+
+    $chats = getChats($_SESSION['user_id'], $chatWith['user_id'], $conn);
 ?>
 
 
@@ -59,49 +62,31 @@ if (isset($_SESSION['username'])) :
                 </h3>
             </div>
             <div id="chatBox" class="shadow p-4 rounded d-flex flex-column mt-4 w-100 chat-box">
-                <p class="rtext align-self-end border rounded p-2 mb-1">
-                    Hello, there
-                    <small class="d-block">12:00</small>
-                </p>
-
-                <p class="ltext border rounded p-2 mb-1">
-                    Hello
-                    <small class="d-block">12:00</small>
-                </p>
-
-                <p class="rtext align-self-end border rounded p-2 mb-1">
-                    Hello, there
-                    <small class="d-block">12:00</small>
-                </p>
-
-                <p class="ltext border rounded p-2 mb-1">
-                    Hello
-                    <small class="d-block">12:00</small>
-                </p>
-
-                <p class="rtext align-self-end border rounded p-2 mb-1">
-                    Hello, there
-                    <small class="d-block">12:00</small>
-                </p>
-
-                <p class="ltext border rounded p-2 mb-1">
-                    Hello
-                    <small class="d-block">12:00</small>
-                </p>
-
-                <p class="rtext align-self-end border rounded p-2 mb-1">
-                    Hello, there
-                    <small class="d-block">12:00</small>
-                </p>
-
-                <p class="ltext border rounded p-2 mb-1">
-                    Hello
-                    <small class="d-block">12:00</small>
-                </p>
+                <?php if (!empty($chats)): ?>
+                    <?php foreach($chats as $chat): ?>
+                        <?php if ($chat['from_id'] === $_SESSION['user_id']): ?>
+                            <p class="rtext align-self-end border rounded p-2 mb-1">
+                                <?= $chat['message'] ?>
+                                <small class="d-block"><?= $chat['created_at'] ?></small>
+                            </p>
+                        <?php else: ?>
+                            <p class="ltext border rounded p-2 mb-1">
+                                <?= $chat['message'] ?>
+                                <small class="d-block"><?= $chat['created_at'] ?></small>
+                            </p>
+                        <?php endif ?>                        
+                    <?php endforeach ?>
+                <?php else: ?>
+                    <div class="alert alert-info text-center" role="alert">
+                        <i class="bi bi-wechat d-block fs-big"></i>
+                        No messages yet, start the conversation
+                    </div>
+                <?php endif ?>
+                
             </div>
             <div class="input-group mb-3">
-                <textarea cols="3" class="form-control "></textarea>
-                <button class="btn btn-primary">
+                <textarea id="message" cols="3" class="form-control "></textarea>
+                <button id="sendBtn" class="btn btn-primary">
                     <i class="bi bi-send"></i>
                 </button>
             </div>
@@ -118,8 +103,33 @@ if (isset($_SESSION['username'])) :
 
             scrollDown();
             $(document).ready(function() {
+                $("#sendBtn").on('click', function(){
+                    message = $("#message").val();
+                   
+                    if (message == "") return;
 
+                    $.post("app/ajax/insert.php", 
+                            {
+                                message: message,
+                                to_id: <?=$chatWith['user_id']?>
+                            },
+                            function(data, status){
+                                $("#message").val("");
+                                $("#chatBox").append(data);
+                                scrollDown();
+                            })
+                })
                 
+                
+                // Auto update last seen for logged in user
+                let lastSeenUpdate = function(){
+                    $.get("app/ajax/update_last_seen.php");
+                }
+                lastSeenUpdate();
+
+                // Auto update last seen every 5 sec
+                setInterval(lastSeenUpdate, 5000);
+
             });
         </script>
 

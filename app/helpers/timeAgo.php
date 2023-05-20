@@ -5,8 +5,7 @@
 define('TIMEZONE', 'Africa/Dakar');
 date_default_timezone_set(TIMEZONE);
 
-function last_seen($data_time)
-{
+function last_seen($data_time): string{
     $timestamp = strtotime($data_time);
 
     $strTime = array("second", "minute", "hour", "day", "month", "year");

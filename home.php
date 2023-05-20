@@ -67,7 +67,7 @@ $conversations = getConversations($user['user_id'], $conn);
                                     class="w-10 rounded-circle">
                                 <h3 class="fs-xs m-2"><?= $conversation['name'] ?></h3>
                             </div>
-                            <?php if(last_seen($conversation['last_seen'])): ?>
+                            <?php if(last_seen($conversation['last_seen']) === "Active"): ?>
                             <div title="online">
                                 <div class="online"></div>
                             </div>
